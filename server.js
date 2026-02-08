@@ -1,3 +1,4 @@
+require("dotenv").config();
 const app = require("./src/app.js")
 const colors = require("colors")
 const connectDB = require("./src/db/db.js")
