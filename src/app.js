@@ -8,6 +8,8 @@ app.use(express.json());
 
 const upload = multer({storage:multer.memoryStorage()});
 
+
+//Post api to create posts with captions
 app.post('/create-post',upload.single("image"), async (req,res) => {
 
     console.log(req.body);
@@ -30,6 +32,7 @@ app.post('/create-post',upload.single("image"), async (req,res) => {
 })
 
 
+//fetch all the posts
 app.get("/posts", async (req,res) => {
 
     const posts = await postModel.find()
