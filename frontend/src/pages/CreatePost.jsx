@@ -1,19 +1,42 @@
 import React from 'react'
+import axios from "axios"
+import {useNavigate} from "react-router-dom"
 
-function CreatePost() {
-  return (
-    <section className='create-post-section'>
-        <h1>Create post</h1>
+const CreatePost = () => {
 
-        <form action="">
+    const navigate = useNavigate()
 
-            <input type="file" name='image' accept='image/*' />
-            <input type="text" name='caption' required  placeholder='Enter caption'/>
-            <button type='submit'>Submit</button>
+    const handleSubmit = async (e) => {
+        e.preventDefault()
 
-        </form>
-    </section>
-  )
+        const formData = new FormData(e.target)
+
+        axios.post("http://localhost:3000/create-post", formData)
+        .then((res) => {
+            // alert("Post create successfully")
+            // e.target.reset()
+            navigate("/posts")
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("Error creating post")
+        })
+    }
+
+
+        return (
+            <section className='create-post-section'>
+                <h1>Create post</h1>
+
+                <form action="" onSubmit={handleSubmit}>
+
+                    <input type="file" name='image' accept='image/*' />
+                    <input type="text" name='caption' required  placeholder='Enter caption'/>
+                    <button type='submit'>Submit</button>
+
+                </form>
+            </section>
+        )
 }
 
 export default CreatePost
